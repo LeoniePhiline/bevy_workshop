@@ -22,16 +22,24 @@ fn control_player(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     mut player: Query<&mut Transform, With<Player>>,
     mut sprite: Query<&mut Sprite, With<Player>>,
+    mut steps: Local<u32>,
 ) {
     let mut player_transform = player.single_mut();
     let mut player_sprite = sprite.single_mut();
+
     if keyboard_input.pressed(KeyCode::KeyA) {
         player_transform.translation.x -= 5.0;
         player_sprite.flip_x = true;
+        *steps += 1;
     }
     if keyboard_input.pressed(KeyCode::KeyD) {
         player_transform.translation.x += 5.0;
         player_sprite.flip_x = false;
+        *steps += 1;
+    }
+
+    if let Some(texture_atlas) = &mut player_sprite.texture_atlas {
+        texture_atlas.index = (*steps % 8) as usize;
     }
 }
 
