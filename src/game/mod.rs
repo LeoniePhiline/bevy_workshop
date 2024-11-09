@@ -29,8 +29,42 @@ fn display_level(mut commands: Commands, assets: Res<GameAssets>) {
     ));
 
     commands.spawn((
-        Sprite::from_color(Color::linear_rgb(0.0, 1.0, 0.0), Vec2::new(1000.0, 80.0)),
-        Transform::from_xyz(0.0, -100.0, 0.0),
+        Sprite::from_atlas_image(
+            assets.ground_image.clone(),
+            TextureAtlas {
+                layout: assets.ground_layout.clone(),
+                index: 14,
+            },
+        ),
+        Transform::from_xyz(-128.0 * 3.0, -100.0, 0.0),
+        Ground,
+        StateScoped(GameState::Game),
+    ));
+
+    for i in -2..=2 {
+        commands.spawn((
+            Sprite::from_atlas_image(
+                assets.ground_image.clone(),
+                TextureAtlas {
+                    layout: assets.ground_layout.clone(),
+                    index: 7,
+                },
+            ),
+            Transform::from_xyz(128.0 * (i as f32), -100.0, 0.0),
+            Ground,
+            StateScoped(GameState::Game),
+        ));
+    }
+
+    commands.spawn((
+        Sprite::from_atlas_image(
+            assets.ground_image.clone(),
+            TextureAtlas {
+                layout: assets.ground_layout.clone(),
+                index: 0,
+            },
+        ),
+        Transform::from_xyz(128.0 * 3.0, -100.0, 0.0),
         Ground,
         StateScoped(GameState::Game),
     ));
