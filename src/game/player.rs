@@ -30,16 +30,16 @@ fn control_player(
     if keyboard_input.pressed(KeyCode::KeyA) {
         player_transform.translation.x -= 5.0;
         player_sprite.flip_x = true;
-        *steps += 1;
+        *steps = (*steps).wrapping_add(1);
     }
     if keyboard_input.pressed(KeyCode::KeyD) {
         player_transform.translation.x += 5.0;
         player_sprite.flip_x = false;
-        *steps += 1;
+        *steps = (*steps).wrapping_add(1);
     }
 
     if let Some(texture_atlas) = &mut player_sprite.texture_atlas {
-        texture_atlas.index = 7 * (*steps % 8) as usize;
+        texture_atlas.index = 7 * ((*steps / 8/* animation speed */) % 8) as usize;
     }
 }
 
