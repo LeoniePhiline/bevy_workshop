@@ -39,7 +39,7 @@ fn control_player(
     }
 
     if let Some(texture_atlas) = &mut player_sprite.texture_atlas {
-        texture_atlas.index = (*steps % 8) as usize;
+        texture_atlas.index = 7 * (*steps % 8) as usize;
     }
 }
 
