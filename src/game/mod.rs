@@ -18,18 +18,6 @@ struct Ground;
 fn display_level(mut commands: Commands, assets: Res<GameAssets>) {
     commands.spawn((
         Sprite::from_atlas_image(
-            assets.player_image.clone(),
-            TextureAtlas {
-                layout: assets.player_layout.clone(),
-                index: 0,
-            },
-        ),
-        StateScoped(GameState::Game),
-        Player,
-    ));
-
-    commands.spawn((
-        Sprite::from_atlas_image(
             assets.ground_image.clone(),
             TextureAtlas {
                 layout: assets.ground_layout.clone(),
@@ -67,5 +55,18 @@ fn display_level(mut commands: Commands, assets: Res<GameAssets>) {
         Transform::from_xyz(128.0 * 3.0, -100.0, 0.0),
         Ground,
         StateScoped(GameState::Game),
+    ));
+
+    commands.spawn((
+        Sprite::from_atlas_image(
+            assets.player_image.clone(),
+            TextureAtlas {
+                layout: assets.player_layout.clone(),
+                index: 0,
+            },
+        ),
+        Transform::from_xyz(128.0 * 3.0, 50.0, 1.0),
+        StateScoped(GameState::Game),
+        Player,
     ));
 }
